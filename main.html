@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ювелирный магазин</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div class="control_menu">
+    <p class="moves">Панель взаимодействия</p>
+    <!-- Кнопки управления -->
+    <div class="btn" id="clientBtn" onclick="showPopup('clientsPopup')">Клиенты</div>
+    <div class="btn" id="feedbackBtn" onclick="showPopup('feedbackPopup')">Отзывы</div>
+    <div class="btn" id="ordersBtn" onclick="showPopup('ordersPopup')">Заказы</div>
+    <div class="btn" id="productBtn" onclick="showPopup('productsPopup')">Наши товары</div>
+    <div class="btn" id="sellsBtn" onclick="showPopup('sellsPopup')">Продажи</div>
+    <div class="btn" id="addProductBtn" onclick="showPopup('addProductPopup')">Добавить товар</div>
+    <div class="btn" id="dltprdctBtn" onclick="showPopup('deleteProductPopup')">Удалить товар</div>
+    <div class="btn" id="cngpriceBtn" onclick="showPopup('cngprice')">Изменить цену товара</div>
+    <div class="btn" id="cartBtn" onclick="showCart()">Корзина</div>
+    <button id="downloadPdfBtn" class="btn">Скачать PDF</button>
+    <button id="logoutBtn" class="btn" onclick="logout()">Выход</button>
+
+</div>
+
+<div class="product_menu">
+    <!-- Примеры продуктов (серьги и кольца) -->
+    <div class="first_row">
+        <div class="gold_sergy">
+            <div class="prdphoto"><img src="/img/goldsergy.jpg"></div>
+            <p class="discribe">Золотые серьги</p>
+            <p class="price">Цена: 1000$</p>
+            <button class="buy-btn" onclick="addToCart('Золотые серьги', 1000)">Купить</button>
+        </div>
+        <div class="silver_sergy">
+            <div class="prdphoto"><img src="/img/silversergy.jpg"></div>
+            <p class="discribe">Серебрянные серьги</p>
+            <p class="price">Цена: 800$</p>
+            <button class="buy-btn" onclick="addToCart('Серебрянные серьги', 800)">Купить</button>
+        </div>
+        <div class="zhemch_sergy">
+            <div class="prdphoto"><img src="/img/zhemchsergy.jpg"></div>
+            <p class="discribe">Жемчуженные серьги</p>
+            <p class="price">Цена: 900$</p>
+            <button class="buy-btn" onclick="addToCart('Жемчуженные серьги', 900)">Купить</button>
+        </div>
+    </div>
+    <div class="second_row">
+        <div class="gold_ring">
+            <div class="prdphoto"><img src="/img/goldring.jpg"></div>
+            <p class="discribe">Золотое кольцо</p>
+            <p class="price">Цена: 2000$</p>
+            <button class="buy-btn" onclick="addToCart('Золотое кольцо', 2000)">Купить</button>
+        </div>
+        <div class="silver_ring">
+            <div class="prdphoto"><img src="/img/silverring.jpg"></div>
+            <p class="discribe">Серебрянное кольцо</p>
+            <p class="price">Цена: 1800$</p>
+            <button class="buy-btn" onclick="addToCart('Серебрянное кольцо', 1800)">Купить</button>
+        </div>
+        <div class="zhemch_ring">
+            <div class="prdphoto"><img src="/img/zhemchring.jpg"></div>
+            <p class="discribe">Кольцо с жемчугом</p>
+            <p class="price">Цена: 1900$</p>
+            <button class="buy-btn" onclick="addToCart('Кольцо с жемчугом', 1900)">Купить</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальные окна для различных разделов -->
+<div id="clientsPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('clientsPopup')">&times;</span>
+        <h3>Клиенты</h3>
+        <div id="clientsTable" class="table-container"></div>
+    </div>
+</div>
+
+<div id="feedbackPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('feedbackPopup')">&times;</span>
+        <h3>Отзывы</h3>
+        <div id="feedbackTable" class="table-container"></div>
+    </div>
+</div>
+
+<div id="ordersPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('ordersPopup')">&times;</span>
+        <h3>Заказы</h3>
+        <div id="ordersTable" class="table-container"></div>
+    </div>
+</div>
+
+<div id="productsPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('productsPopup')">&times;</span>
+        <h3>Наши товары</h3>
+        <div id="productsTable" class="table-container"></div>
+    </div>
+</div>
+
+<div id="sellsPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('sellsPopup')">&times;</span>
+        <h3>Продажи</h3>
+        <div id="sellsTable" class="table-container"></div>
+    </div>
+</div>
+
+<!-- Модальное окно для добавления товара -->
+<div id="addProductPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('addProductPopup')">&times;</span>
+        <h3>Добавить товар</h3>
+        <form id="addProductForm">
+            <label for="productId">ID товара:</label><br>
+            <input type="text" id="productId" name="productId"><br>
+            <label for="productName">Название товара:</label><br>
+            <input type="text" id="productName" name="productName"><br>
+            <label for="productMaterial">Материал товара:</label><br>
+            <input type="text" id="productMaterial" name="productMaterial"><br>
+            <label for="productWeight">Вес товара:</label><br>
+            <input type="text" id="productWeight" name="productWeight"><br>
+            <label for="productPrice">Цена товара:</label><br>
+            <input type="text" id="productPrice" name="productPrice"><br>
+            <label for="productQuantity">Количество на складе:</label><br>
+            <input type="text" id="productQuantity" name="productQuantity"><br>
+            <label for="productDiscribe">Описание товара:</label><br> <!-- Здесь изменено на productDiscribe -->
+            <textarea id="productDiscribe" name="productDiscribe"></textarea><br> <!-- Здесь изменено на productDiscribe -->
+            <input type="submit" value="Добавить">
+        </form>
+        </form>
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно для удаления товара -->
+<div id="deleteProductPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('deleteProductPopup')">&times;</span>
+        <h3>Удалить товар</h3>
+        <form id="deleteProductForm">
+            <label for="deleteProductId">Выберите товар:</label><br>
+            <select id="deleteProductId" name="deleteProductId"></select><br>
+            <input type="button" value="Удалить" onclick="deleteProduct()">
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно для изменения цены товара -->
+<div id="cngpriceModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangePriceForm()">&times;</span>
+        <h2>Изменить цену товара</h2>
+        <input type="text" id="product_id" placeholder="ID товара">
+        <input type="text" id="newPrice" placeholder="Новая цена">
+        <button type="button" onclick="changeProductPrice()">Изменить</button>
+    </div>
+</div>
+<!-- Модальное окно для корзины -->
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeCart()">&times;</span>
+        <h2>Корзина</h2>
+        <table id="cartTable">
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Цена</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Содержимое корзины будет добавляться сюда -->
+            </tbody>
+        </table>
+        <p>Итоговая сумма: <span id="totalPrice">0</span>$</p>
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
