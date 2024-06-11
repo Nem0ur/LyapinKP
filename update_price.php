@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_product_price']
         exit;
     }
 
-    // Используем $_POST['product_Id'] вместо $_POST['product_id']
     $product_id = $_POST['product_id'];
     $new_price = $_POST['new_price'];
 
@@ -28,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_product_price']
     $query_check_product = "SELECT * FROM products WHERE product_id = $1";
     $result_check_product = pg_query_params($conn, $query_check_product, array($product_id));
 
-    // Проверка на ошибки при выполнении запроса
     if (!$result_check_product) {
         echo "Ошибка выполнения запроса: " . pg_last_error($conn);
         pg_close($conn);
@@ -42,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_product_price']
         if ($result_update_price) {
             echo "Цена товара успешно изменена!";
         } else {
-            echo "Ошибка при обновлении цены товара: " . pg_last_error($conn); // Добавлено сообщение об ошибке
+            echo "Ошибка при обновлении цены товара: " . pg_last_error($conn);
         }
     } else {
         echo "Товар с указанным ID не найден.";
