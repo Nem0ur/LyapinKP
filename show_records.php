@@ -36,15 +36,29 @@ function showRecords($table) {
         'sells_id' => 'Номер продажи',
         'sells_pm' => 'Способ оплаты',
         'sells_summ' => 'Сумма оплаты',
-
-        // Добавьте другие переводы по необходимости
+        'order_date' => 'Дата оплаты',
+        'order_dd' => 'Дата приезда',
     );
 
     try {
         $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname;user=$username;password=$password");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $query = "SELECT * FROM \"$table\"";
+        // Измененный SQL запрос с JOIN для таблицы sells
+        if ($table == 'sells') {
+            $query = "SELECT sells.sells_id, sells.sells_date, sells.sells_summ, products.product_name
+                      FROM sells
+                      INNER JOIN products ON sells.product_id = products.product_id";
+        } elseif ($table == 'orders') {
+            // Измененный SQL запрос с JOIN для таблицы orders
+            $query = "SELECT orders.order_id, orders.client_id, orders.order_status, products.product_name
+                      FROM orders
+                      INNER JOIN products ON orders.product_id = products.product_id";
+        } else {
+            // Оставляем запрос без изменений для остальных таблиц
+            $query = "SELECT * FROM \"$table\"";
+        }
+
         $stmt = $conn->query($query);
 
         $columnCount = $stmt->columnCount();
