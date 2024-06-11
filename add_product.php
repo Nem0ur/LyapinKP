@@ -13,8 +13,10 @@ try {
     die("Ошибка подключения к базе данных: " . $e->getMessage());
 }
 
+// Генерация случайного ID
+$productId = rand(1, 1000000); // Пример генерации случайного ID
+
 // Получаем данные из POST запроса
-$productId = $_POST['productId'];
 $productName = $_POST['productName'];
 $productMaterial = $_POST['productMaterial'];
 $productWeight = $_POST['productWeight'];
