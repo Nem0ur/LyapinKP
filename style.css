@@ -134,7 +134,7 @@ input {
 button{
     background: transparent;
     border: none;
-    color: #ffffff; /* Цвет текста placeholder'а */
+    color: red; /* Цвет текста placeholder'а */
     font-size: 14px;
 }
 
@@ -253,6 +253,5 @@ button{
     display: none;
     color: green;
 }
-
 
 
