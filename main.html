@@ -109,14 +109,13 @@
     </div>
 </div>
 
+
 <!-- Модальное окно для добавления товара -->
 <div id="addProductPopup" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closePopup('addProductPopup')">&times;</span>
         <h3>Добавить товар</h3>
         <form id="addProductForm">
-            <label for="productId">ID товара:</label><br>
-            <input type="text" id="productId" name="productId"><br>
             <label for="productName">Название товара:</label><br>
             <input type="text" id="productName" name="productName"><br>
             <label for="productMaterial">Материал товара:</label><br>
@@ -127,15 +126,12 @@
             <input type="text" id="productPrice" name="productPrice"><br>
             <label for="productQuantity">Количество на складе:</label><br>
             <input type="text" id="productQuantity" name="productQuantity"><br>
-            <label for="productDiscribe">Описание товара:</label><br> <!-- Здесь изменено на productDiscribe -->
-            <textarea id="productDiscribe" name="productDiscribe"></textarea><br> <!-- Здесь изменено на productDiscribe -->
+            <label for="productDiscribe">Описание товара:</label><br>
+            <textarea id="productDiscribe" name="productDiscribe"></textarea><br>
             <input type="submit" value="Добавить">
-        </form>
-        </form>
         </form>
     </div>
 </div>
-
 <!-- Модальное окно для удаления товара -->
 <div id="deleteProductPopup" class="popup">
     <div class="popup-content">
@@ -154,7 +150,9 @@
     <div class="modal-content">
         <span class="close" onclick="closeChangePriceForm()">&times;</span>
         <h2>Изменить цену товара</h2>
-        <input type="text" id="product_id" placeholder="ID товара">
+        <select id="product_id">
+            <option value="">Выберите товар</option>
+        </select>
         <input type="text" id="newPrice" placeholder="Новая цена">
         <button type="button" onclick="changeProductPrice()">Изменить</button>
     </div>
@@ -168,7 +166,8 @@
             <thead>
             <tr>
                 <th>Название</th>
-                <th>Цена</th>
+                <th>Цена
+                <th>Действие</th>
             </tr>
             </thead>
             <tbody>
